@@ -1,4 +1,4 @@
-package ink.duo3.fontconventer
+package ink.duo3.fontconverter
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import ink.duo3.fontconventer.ui.theme.AppTheme
+import ink.duo3.fontconverter.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

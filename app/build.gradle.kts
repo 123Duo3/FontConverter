@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "ink.duo3.fontconventer"
+    namespace = "ink.duo3.fontconverter"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "ink.duo3.fontconventer"
+        applicationId = "ink.duo3.fontconverter"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

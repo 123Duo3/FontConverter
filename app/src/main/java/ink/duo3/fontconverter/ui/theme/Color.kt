@@ -1,4 +1,4 @@
-package ink.duo3.fontconventer.ui.theme
+package ink.duo3.fontconverter.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFF4355B9)

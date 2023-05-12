@@ -1,4 +1,4 @@
-package ink.duo3.fontconventer
+package ink.duo3.fontconverter
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package ink.duo3.fontconventer.ui.theme
+package ink.duo3.fontconverter.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
