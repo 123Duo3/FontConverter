@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FontConventer"
+rootProject.name = "FontConverter"
 include(":app")
