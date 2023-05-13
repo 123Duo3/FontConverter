@@ -45,7 +45,7 @@ fun StyleItem(text: String, style: TextStyle) {
     Column(Modifier.padding(16.dp, 0.dp)) {
         Row(
             Modifier
-                .padding(16.dp, 4.dp, 16.dp, 0.dp)
+                .padding(16.dp, 4.dp, 4.dp, 0.dp)
                 .height(40.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
