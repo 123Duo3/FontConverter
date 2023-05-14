@@ -15,4 +15,10 @@
     <string name="font_sans_bold">Sans Bold</string>
     <string name="font_sans_italic">Sans Italic</string>
     <string name="font_sans_bold_italic">Sans Bold Italic</string>
+    <string name="font_script_normal">Script</string>
+    <string name="font_script_bold">Script Bold</string>
+    <string name="font_fraktur_normal">Fraktur</string>
+    <string name="font_fraktur_bold">Fraktur Bold</string>
+    <string name="font_monospace_normal">Monospace</string>
+    <string name="font_doublestruck_bold">Doublestruck</string>
 </resources>

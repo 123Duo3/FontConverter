@@ -16,7 +16,8 @@ fun String.toStyled(style: TextStyle): String {
                 TextStyle.SANS_BOLD -> c.toSansBold()
                 TextStyle.SANS_ITALIC -> c.toSansItalic()
                 TextStyle.SANS_BOLD_ITALIC -> c.toSansBoldItalic()
-                else -> c
+                TextStyle.SCRIPT_NORMAL -> c.toScriptNormal()
+                TextStyle.SCRIPT_BOLD -> c.toScriptBold()
             }
         )
     }
@@ -30,7 +31,9 @@ enum class TextStyle {
     SANS_NORMAL,
     SANS_BOLD,
     SANS_ITALIC,
-    SANS_BOLD_ITALIC
+    SANS_BOLD_ITALIC,
+    SCRIPT_NORMAL,
+    SCRIPT_BOLD,
 }
 
 @Composable
@@ -43,6 +46,8 @@ fun TextStyle.toName(): String {
         TextStyle.SANS_BOLD -> stringResource(id = R.string.font_sans_bold)
         TextStyle.SANS_ITALIC -> stringResource(id = R.string.font_sans_italic)
         TextStyle.SANS_BOLD_ITALIC -> stringResource(id = R.string.font_sans_bold_italic)
+        TextStyle.SCRIPT_NORMAL -> stringResource(id = R.string.font_script_normal)
+        TextStyle.SCRIPT_BOLD -> stringResource(id = R.string.font_script_bold)
     }
 }
 
@@ -170,6 +175,33 @@ fun Char.toSansBoldItalic(): String {
         'ϱ' -> "\uD835\uDFC8"
         'ϖ' -> "\uD835\uDFC9"
 
+        else -> this.toString()
+    }
+}
+
+fun Char.toScriptNormal(): String {
+    return when (this) {
+        'B' -> "\u212C"
+        'E' -> "\u2130"
+        'F' -> "\u2131"
+        'H' -> "\u210B"
+        'I' -> "\u2110"
+        'L' -> "\u2112"
+        'M' -> "\u2133"
+        'R' -> "\u211B"
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDC9C).toChar()}"
+        'e' -> "\u212F"
+        'g' -> "\u210A"
+        'o' -> "\u2134"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDCB6).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toScriptBold(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDCD0).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDCEA).toChar()}"
         else -> this.toString()
     }
 }
