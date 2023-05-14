@@ -1,5 +1,6 @@
 package ink.duo3.fontconverter.ui.components
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -39,6 +41,7 @@ import ink.duo3.fontconverter.utils.toStyled
 @Composable
 fun StyleItem(text: String, style: TextStyle) {
 
+    val context = LocalContext.current
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val styledText = text.toStyled(style)
 
@@ -68,6 +71,13 @@ fun StyleItem(text: String, style: TextStyle) {
                             .clickable(
                                 onClick = {
                                     clipboardManager.setText(AnnotatedString(styledText))
+                                        .also {
+                                            Toast.makeText(
+                                                context,
+                                                "Copied",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
                                 },
                                 onClickLabel = "Copy"
                             )
