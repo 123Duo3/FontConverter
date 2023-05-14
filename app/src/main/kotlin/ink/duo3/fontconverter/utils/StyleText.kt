@@ -18,6 +18,10 @@ fun String.toStyled(style: TextStyle): String {
                 TextStyle.SANS_BOLD_ITALIC -> c.toSansBoldItalic()
                 TextStyle.SCRIPT_NORMAL -> c.toScriptNormal()
                 TextStyle.SCRIPT_BOLD -> c.toScriptBold()
+                TextStyle.FRAKTUR_NORMAL -> c.toFrakturNormal()
+                TextStyle.FRAKTUR_BOLD -> c.toFrakturBold()
+                TextStyle.MONOSPACE_NORMAL -> c.toMonospaceNormal()
+                TextStyle.DOUBLESTRUCK_BOLD -> c.toDoublestruckBold()
             }
         )
     }
@@ -34,6 +38,10 @@ enum class TextStyle {
     SANS_BOLD_ITALIC,
     SCRIPT_NORMAL,
     SCRIPT_BOLD,
+    FRAKTUR_NORMAL,
+    FRAKTUR_BOLD,
+    MONOSPACE_NORMAL,
+    DOUBLESTRUCK_BOLD
 }
 
 @Composable
@@ -48,6 +56,10 @@ fun TextStyle.toName(): String {
         TextStyle.SANS_BOLD_ITALIC -> stringResource(id = R.string.font_sans_bold_italic)
         TextStyle.SCRIPT_NORMAL -> stringResource(id = R.string.font_script_normal)
         TextStyle.SCRIPT_BOLD -> stringResource(id = R.string.font_script_bold)
+        TextStyle.FRAKTUR_NORMAL -> stringResource(id = R.string.font_fraktur_normal)
+        TextStyle.FRAKTUR_BOLD -> stringResource(id = R.string.font_fraktur_bold)
+        TextStyle.MONOSPACE_NORMAL -> stringResource(id = R.string.font_monospace_normal)
+        TextStyle.DOUBLESTRUCK_BOLD -> stringResource(id = R.string.font_doublestruck_bold)
     }
 }
 
@@ -202,6 +214,52 @@ fun Char.toScriptBold(): String {
     return when (this) {
         in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDCD0).toChar()}"
         in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDCEA).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toFrakturNormal(): String {
+    return when (this) {
+        'C' -> "\u212D"
+        'H' -> "\u210C"
+        'I' -> "\u2111"
+        'R' -> "\u211C"
+        'Z' -> "\u2128"
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDD04).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDD1E).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toFrakturBold(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDD6C).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDD86).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toMonospaceNormal(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDE70).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDE8A).toChar()}"
+        in '0'..'9' -> "\uD835${(this.code - '0'.code + 0xDFF6).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toDoublestruckBold(): String {
+    return when (this) {
+        'C' -> "\u2102"
+        'H' -> "\u210D"
+        'N' -> "\u2115"
+        'P' -> "\u2119"
+        'Q' -> "\u211A"
+        'R' -> "\u211D"
+        'Z' -> "\u2124"
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDD38).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDD52).toChar()}"
+        in '0'..'9' -> "\uD835${(this.code - '0'.code + 0xDFD8).toChar()}"
         else -> this.toString()
     }
 }
