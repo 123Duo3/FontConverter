@@ -17,12 +17,12 @@ Convert fonts by using Mathematical Alphanumeric Symbols and other Unicode block
     - [x] Italic
     - [x] Bold italic
 - Script
-    - [ ] Normal
-    - [ ] Bold
+    - [x] Normal
+    - [x] Bold
 - Fraktur
-    - [ ] Normal
-    - [ ] Bold
+    - [x] Normal
+    - [x] Bold
 - Mono-space
-    - [ ] Normal
+    - [x] Normal
 - Double-struck
-    - [ ] Bold
+    - [x] Bold
