@@ -29,26 +29,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-val LocalScreenSize = compositionLocalOf { ScreenSize.COMPACT }
-
-enum class ScreenSize {
-    COMPACT, MEDIUM, EXPANDED
-}
-
-@Composable
-fun ProvideLocalScreenSize(content: @Composable () -> Unit) {
-    var screenSize by remember { mutableStateOf(ScreenSize.COMPACT) }
-    BoxWithConstraints {
-        val width = with(LocalDensity.current) { constraints.maxWidth.toDp() }
-        LaunchedEffect(width) {
-            screenSize = when {
-                width < 600.dp -> ScreenSize.COMPACT
-                width >= 600.dp && width < 840.dp -> ScreenSize.MEDIUM
-                width >= 840.dp -> ScreenSize.EXPANDED
-                else -> error("error")
-            }
-        }
-        CompositionLocalProvider(LocalScreenSize provides screenSize, content = content)
-    }
-}
