@@ -12,7 +12,16 @@ fun String.toStyled(style: TextStyle): String {
                 TextStyle.BOLD -> c.toBold()
                 TextStyle.ITALIC -> c.toItalic()
                 TextStyle.BOLD_ITALIC -> c.toBoldItalic()
-                else -> c
+                TextStyle.SANS_NORMAL -> c.toSansNormal()
+                TextStyle.SANS_BOLD -> c.toSansBold()
+                TextStyle.SANS_ITALIC -> c.toSansItalic()
+                TextStyle.SANS_BOLD_ITALIC -> c.toSansBoldItalic()
+                TextStyle.SCRIPT_NORMAL -> c.toScriptNormal()
+                TextStyle.SCRIPT_BOLD -> c.toScriptBold()
+                TextStyle.FRAKTUR_NORMAL -> c.toFrakturNormal()
+                TextStyle.FRAKTUR_BOLD -> c.toFrakturBold()
+                TextStyle.MONOSPACE_NORMAL -> c.toMonospaceNormal()
+                TextStyle.DOUBLESTRUCK_BOLD -> c.toDoublestruckBold()
             }
         )
     }
@@ -23,6 +32,16 @@ enum class TextStyle {
     BOLD,
     ITALIC,
     BOLD_ITALIC,
+    SANS_NORMAL,
+    SANS_BOLD,
+    SANS_ITALIC,
+    SANS_BOLD_ITALIC,
+    SCRIPT_NORMAL,
+    SCRIPT_BOLD,
+    FRAKTUR_NORMAL,
+    FRAKTUR_BOLD,
+    MONOSPACE_NORMAL,
+    DOUBLESTRUCK_BOLD
 }
 
 @Composable
@@ -31,6 +50,16 @@ fun TextStyle.toName(): String {
         TextStyle.BOLD -> stringResource(id = R.string.font_bold)
         TextStyle.ITALIC -> stringResource(id = R.string.font_italic)
         TextStyle.BOLD_ITALIC -> stringResource(id = R.string.font_bold_italic)
+        TextStyle.SANS_NORMAL -> stringResource(id = R.string.font_sans_normal)
+        TextStyle.SANS_BOLD -> stringResource(id = R.string.font_sans_bold)
+        TextStyle.SANS_ITALIC -> stringResource(id = R.string.font_sans_italic)
+        TextStyle.SANS_BOLD_ITALIC -> stringResource(id = R.string.font_sans_bold_italic)
+        TextStyle.SCRIPT_NORMAL -> stringResource(id = R.string.font_script_normal)
+        TextStyle.SCRIPT_BOLD -> stringResource(id = R.string.font_script_bold)
+        TextStyle.FRAKTUR_NORMAL -> stringResource(id = R.string.font_fraktur_normal)
+        TextStyle.FRAKTUR_BOLD -> stringResource(id = R.string.font_fraktur_bold)
+        TextStyle.MONOSPACE_NORMAL -> stringResource(id = R.string.font_monospace_normal)
+        TextStyle.DOUBLESTRUCK_BOLD -> stringResource(id = R.string.font_doublestruck_bold)
     }
 }
 
@@ -40,58 +69,11 @@ fun Char.toBold(): String {
         in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDC1A).toChar()}"
         in '0'..'9' -> "\uD835${(this.code - '0'.code + 0xDFCE).toChar()}"
         // Capitals of Greek Alphabet
-        'Α' -> "\uD835\uDEA8"
-        'Β' -> "\uD835\uDEA9"
-        'Γ' -> "\uD835\uDEAA"
-        'Δ' -> "\uD835\uDEAB"
-        'Ε' -> "\uD835\uDEAC"
-        'Ζ' -> "\uD835\uDEAD"
-        'Η' -> "\uD835\uDEAE"
-        'Θ' -> "\uD835\uDEAF"
-        'Ι' -> "\uD835\uDEB0"
-        'Κ' -> "\uD835\uDEB1"
-        'Λ' -> "\uD835\uDEB2"
-        'Μ' -> "\uD835\uDEB3"
-        'Ν' -> "\uD835\uDEB4"
-        'Ξ' -> "\uD835\uDEB5"
-        'Ο' -> "\uD835\uDEB6"
-        'Π' -> "\uD835\uDEB7"
-        'Ρ' -> "\uD835\uDEB8"
         'ϴ' -> "\uD835\uDEB9"
-        'Σ' -> "\uD835\uDEBA"
-        'Τ' -> "\uD835\uDEBB"
-        'Υ' -> "\uD835\uDEBC"
-        'Φ' -> "\uD835\uDEBD"
-        'Χ' -> "\uD835\uDEBE"
-        'Ψ' -> "\uD835\uDEBF"
-        'Ω' -> "\uD835\uDEC0"
+        in 'Α'..'Ω' -> "\uD835${(this.code - 'Α'.code + 0xDEA8).toChar()}"
         '∇' -> "\uD835\uDEC1"
         // Lowercase of Greek Alphabet
-        'α' -> "\uD835\uDEC2"
-        'β' -> "\uD835\uDEC3"
-        'γ' -> "\uD835\uDEC4"
-        'δ' -> "\uD835\uDEC5"
-        'ε' -> "\uD835\uDEC6"
-        'ζ' -> "\uD835\uDEC7"
-        'η' -> "\uD835\uDEC8"
-        'θ' -> "\uD835\uDEC9"
-        'ι' -> "\uD835\uDECA"
-        'κ' -> "\uD835\uDECB"
-        'λ' -> "\uD835\uDECC"
-        'μ' -> "\uD835\uDECD"
-        'ν' -> "\uD835\uDECE"
-        'ξ' -> "\uD835\uDECF"
-        'ο' -> "\uD835\uDED0"
-        'π' -> "\uD835\uDED1"
-        'ρ' -> "\uD835\uDED2"
-        'ς' -> "\uD835\uDED3"
-        'σ' -> "\uD835\uDED4"
-        'τ' -> "\uD835\uDED5"
-        'υ' -> "\uD835\uDED6"
-        'φ' -> "\uD835\uDED7"
-        'χ' -> "\uD835\uDED8"
-        'ψ' -> "\uD835\uDED9"
-        'ω' -> "\uD835\uDEDA"
+        in 'α'..'ω' -> "\uD835${(this.code - 'α'.code + 0xDEC2).toChar()}"
         '∂' -> "\uD835\uDEDB"
         'ϵ' -> "\uD835\uDEDC"
         'ϑ' -> "\uD835\uDEDD"
@@ -112,6 +94,19 @@ fun Char.toItalic(): String {
         'h' -> "\u210E"
         in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDC34).toChar()}"
         in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDC4E).toChar()}"
+        // Capitals of Greek Alphabet
+        'ϴ' -> "\uD835\uDEF3"
+        in 'Α'..'Ω' -> "\uD835${(this.code - 'Α'.code + 0xDEE2).toChar()}"
+        '∇' -> "\uD835\uDEFB"
+        // Lowercase of Greek Alphabet
+        in 'α'..'ω' -> "\uD835${(this.code - 'α'.code + 0xDEFC).toChar()}"
+        '∂' -> "\uD835\uDF15"
+        'ϵ' -> "\uD835\uDF16"
+        'ϑ' -> "\uD835\uDF17"
+        'ϰ' -> "\uD835\uDF18"
+        'ϕ' -> "\uD835\uDF19"
+        'ϱ' -> "\uD835\uDF1A"
+        'ϖ' -> "\uD835\uDF1B"
         else -> this.toString()
     }
 }
@@ -120,6 +115,151 @@ fun Char.toBoldItalic(): String {
     return when (this) {
         in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDC68).toChar()}"
         in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDC82).toChar()}"
+        // Capitals of Greek Alphabet
+        'ϴ' -> "\uD835\uDF2D"
+        in 'Α'..'Ω' -> "\uD835${(this.code - 'Α'.code + 0xDF1C).toChar()}"
+        '∇' -> "\uD835\uDF35"
+        // Lowercase of Greek Alphabet
+        in 'α'..'ω' -> "\uD835${(this.code - 'α'.code + 0xDF36).toChar()}"
+        '∂' -> "\uD835\uDF4F"
+        'ϵ' -> "\uD835\uDF50"
+        'ϑ' -> "\uD835\uDF51"
+        'ϰ' -> "\uD835\uDF52"
+        'ϕ' -> "\uD835\uDF53"
+        'ϱ' -> "\uD835\uDF54"
+        'ϖ' -> "\uD835\uDF55"
+        else -> this.toString()
+    }
+}
+
+fun Char.toSansNormal(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDDA0).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDDBA).toChar()}"
+        in '0'..'9' -> "\uD835${(this.code - '0'.code + 0xDFE2).toChar()}"
+        else -> this.toString()
+    }
+}
+fun Char.toSansBold(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDDD4).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDDEE).toChar()}"
+        in '0'..'9' -> "\uD835${(this.code - '0'.code + 0xDFEC).toChar()}"
+        // Capitals of Greek Alphabet
+        'ϴ' -> "\uD835\uDF67"
+        in 'Α'..'Ω' -> "\uD835${(this.code - 'Α'.code + 0xDF56).toChar()}"
+        '∇' -> "\uD835\uDF6F"
+        // Lowercase of Greek Alphabet
+        in 'α'..'ω' -> "\uD835${(this.code - 'α'.code + 0xDF70).toChar()}"
+        '∂' -> "\uD835\uDF89"
+        'ϵ' -> "\uD835\uDF8A"
+        'ϑ' -> "\uD835\uDF8B"
+        'ϰ' -> "\uD835\uDF8C"
+        'ϕ' -> "\uD835\uDF8D"
+        'ϱ' -> "\uD835\uDF8E"
+        'ϖ' -> "\uD835\uDF8F"
+
+        else -> this.toString()
+    }
+}
+fun Char.toSansItalic(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDE08).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDE22).toChar()}"
+        else -> this.toString()
+    }
+}
+fun Char.toSansBoldItalic(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDE3C).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDE56).toChar()}"
+        // Capitals of Greek Alphabet
+        'ϴ' -> "\uD835\uDFA1"
+        in 'Α'..'Ω' -> "\uD835${(this.code - 'Α'.code + 0xDF90).toChar()}"
+        '∇' -> "\uD835\uDFA9"
+        // Lowercase of Greek Alphabet
+        in 'α'..'ω' -> "\uD835${(this.code - 'α'.code + 0xDFAA).toChar()}"
+        '∂' -> "\uD835\uDFC3"
+        'ϵ' -> "\uD835\uDFC4"
+        'ϑ' -> "\uD835\uDFC5"
+        'ϰ' -> "\uD835\uDFC6"
+        'ϕ' -> "\uD835\uDFC7"
+        'ϱ' -> "\uD835\uDFC8"
+        'ϖ' -> "\uD835\uDFC9"
+
+        else -> this.toString()
+    }
+}
+
+fun Char.toScriptNormal(): String {
+    return when (this) {
+        'B' -> "\u212C"
+        'E' -> "\u2130"
+        'F' -> "\u2131"
+        'H' -> "\u210B"
+        'I' -> "\u2110"
+        'L' -> "\u2112"
+        'M' -> "\u2133"
+        'R' -> "\u211B"
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDC9C).toChar()}"
+        'e' -> "\u212F"
+        'g' -> "\u210A"
+        'o' -> "\u2134"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDCB6).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toScriptBold(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDCD0).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDCEA).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toFrakturNormal(): String {
+    return when (this) {
+        'C' -> "\u212D"
+        'H' -> "\u210C"
+        'I' -> "\u2111"
+        'R' -> "\u211C"
+        'Z' -> "\u2128"
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDD04).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDD1E).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toFrakturBold(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDD6C).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDD86).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toMonospaceNormal(): String {
+    return when (this) {
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDE70).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDE8A).toChar()}"
+        in '0'..'9' -> "\uD835${(this.code - '0'.code + 0xDFF6).toChar()}"
+        else -> this.toString()
+    }
+}
+
+fun Char.toDoublestruckBold(): String {
+    return when (this) {
+        'C' -> "\u2102"
+        'H' -> "\u210D"
+        'N' -> "\u2115"
+        'P' -> "\u2119"
+        'Q' -> "\u211A"
+        'R' -> "\u211D"
+        'Z' -> "\u2124"
+        in 'A'..'Z' -> "\uD835${(this.code - 'A'.code + 0xDD38).toChar()}"
+        in 'a'..'z' -> "\uD835${(this.code - 'a'.code + 0xDD52).toChar()}"
+        in '0'..'9' -> "\uD835${(this.code - '0'.code + 0xDFD8).toChar()}"
         else -> this.toString()
     }
 }

@@ -12,10 +12,10 @@ Convert fonts by using Mathematical Alphanumeric Symbols and other Unicode block
     - [x] Italic
     - [x] Bold italic
 - Sans Serif
-    - [ ] Normal
-    - [ ] Bold
-    - [ ] Italic
-    - [ ] Bold italic
+    - [x] Normal
+    - [x] Bold
+    - [x] Italic
+    - [x] Bold italic
 - Script
     - [ ] Normal
     - [ ] Bold

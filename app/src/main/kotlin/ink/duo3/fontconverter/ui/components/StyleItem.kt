@@ -44,6 +44,7 @@ fun StyleItem(text: String, style: TextStyle) {
     val context = LocalContext.current
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     val styledText = text.toStyled(style)
+    val copiedToast = stringResource(id = R.string.toast_copied)
 
     Column(Modifier.padding(16.dp, 0.dp)) {
         Row(
@@ -70,13 +71,16 @@ fun StyleItem(text: String, style: TextStyle) {
                         Modifier
                             .clickable(
                                 onClick = {
-                                    clipboardManager.setText(AnnotatedString(styledText))
+                                    clipboardManager
+                                        .setText(AnnotatedString(styledText))
                                         .also {
-                                            Toast.makeText(
-                                                context,
-                                                "Copied",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
+                                            Toast
+                                                .makeText(
+                                                    context,
+                                                    copiedToast,
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                .show()
                                         }
                                 },
                                 onClickLabel = "Copy"
