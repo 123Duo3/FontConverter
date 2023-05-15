@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
@@ -30,9 +31,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -69,29 +72,46 @@ import androidx.core.content.pm.PackageInfoCompat
 import ink.duo3.fontconverter.ui.components.AppBanner
 import ink.duo3.fontconverter.ui.components.AppIcon
 import ink.duo3.fontconverter.ui.components.InputCard
+import ink.duo3.fontconverter.ui.components.SomethingMystical
 import ink.duo3.fontconverter.ui.components.StyleItem
 import ink.duo3.fontconverter.utils.TextStyle
 import ink.duo3.fontconverter.utils.getAppVersion
 
 @Composable
 fun FontConverterApp () {
+    val context = LocalContext.current
+    val easterEggToast = stringResource(id = R.string.toast_easter_egg)
+    var clickCount = remember { mutableStateOf(0) }
     val openDialog = remember { mutableStateOf(false) }
+    val onClick = {
+        if (clickCount.value < 7) {
+            clickCount.value += 1
+        }
+    }
+    val showEasterEgg = (clickCount.value >= 7)
+    if (showEasterEgg) {
+        Toast.makeText(
+            context,
+            easterEggToast,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        AboutDialog(openDialog = openDialog)
+        AboutDialog(openDialog = openDialog, onClick = onClick, showEasterEgg)
         if (LocalConfiguration.current.screenWidthDp.dp < 600.dp) {
-            PortraitLayout(openDialog = openDialog)
+            PortraitLayout(openDialog = openDialog, showEasterEgg)
         } else {
-            LandscapeLayout(openDialog = openDialog)
+            LandscapeLayout(openDialog = openDialog, showEasterEgg)
         }
     }
 }
 
 @Composable
-fun PortraitLayout(openDialog: MutableState<Boolean>) {
+fun PortraitLayout(openDialog: MutableState<Boolean>, showEasterEgg: Boolean) {
     var input by remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
     val bottomPadding = if(
@@ -128,7 +148,7 @@ fun PortraitLayout(openDialog: MutableState<Boolean>) {
         Column(Modifier.verticalScroll(scrollState)) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            ResultDisplay(input = input)
+            ResultDisplay(input = input, showEasterEgg)
 
             Spacer(
                 modifier = Modifier.height(bottomPadding)
@@ -138,7 +158,7 @@ fun PortraitLayout(openDialog: MutableState<Boolean>) {
 }
 
 @Composable
-fun LandscapeLayout(openDialog: MutableState<Boolean>) {
+fun LandscapeLayout(openDialog: MutableState<Boolean>, showEasterEgg: Boolean) {
     var input by remember { mutableStateOf("") }
     val scrollState = rememberScrollState()
     val bottomPadding = if(
@@ -193,7 +213,7 @@ fun LandscapeLayout(openDialog: MutableState<Boolean>) {
             Modifier
                 .weight(0.5f)
                 .verticalScroll(scrollState)) {
-            ResultDisplay(input = input)
+            ResultDisplay(input = input, showEasterEgg)
             Spacer(modifier = Modifier.height(bottomPadding))
         }
     }
@@ -225,20 +245,24 @@ fun AppHeader(openDialog: MutableState<Boolean>) {
 }
 
 @Composable
-fun ResultDisplay(input: String) {
+fun ResultDisplay(input: String, showEasterEgg: Boolean) {
     Column {
-        TextStyle.values().forEach { style ->
+        TextStyle.values().forEachIndexed { index, style ->
             StyleItem(text = input, style = style)
-            if (style != TextStyle.values().last()) {
+            if (index != TextStyle.values().lastIndex) {
                 Divider()
             }
+        }
+        if (showEasterEgg) {
+            Divider()
+            SomethingMystical(text = input)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutDialog (openDialog: MutableState<Boolean>) {
+fun AboutDialog (openDialog: MutableState<Boolean>, onClick: () -> Unit, showEasterEgg: Boolean) {
     val context = LocalContext.current
     val versionName = getAppVersion(context)?.versionName
     if (openDialog.value) {
@@ -260,16 +284,27 @@ fun AboutDialog (openDialog: MutableState<Boolean>) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         AppIcon(48.dp)
-                        Spacer(modifier = Modifier.width(16.dp))
+                        Spacer(modifier = Modifier.width(12.dp))
                         Column {
                             Text(
+                                modifier = Modifier.padding(4.dp, 0.dp),
                                 text = stringResource(id = R.string.app_name_full),
                                 style = MaterialTheme.typography.titleLarge
                             )
-                            Text(
-                                text = stringResource(id = R.string.version)
-                                    .format((versionName ?: stringResource(id = R.string.unknown)))
-                            )
+                            Surface(
+                                Modifier.wrapContentSize(),
+                                shape = RoundedCornerShape(2.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.version)
+                                        .format(
+                                            (versionName ?: stringResource(id = R.string.unknown))
+                                        ),
+                                    modifier = Modifier
+                                        .clickable(onClick = onClick, enabled = !showEasterEgg)
+                                        .padding(4.dp, 0.dp)
+                                )
+                            }
                         }
                         Spacer(modifier = Modifier.width(16.dp))
                     }
