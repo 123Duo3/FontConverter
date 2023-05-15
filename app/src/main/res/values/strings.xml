@@ -21,4 +21,6 @@
     <string name="font_fraktur_bold">Fraktur Bold</string>
     <string name="font_monospace_normal">Monospace</string>
     <string name="font_doublestruck_bold">Doublestruck</string>
+    <string name="toast_easter_egg">Bruh</string>
+    <string name="font_easteregg">Bruh</string>
 </resources>

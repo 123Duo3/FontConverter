@@ -40,12 +40,16 @@ import ink.duo3.fontconverter.utils.toStyled
 
 @Composable
 fun StyleItem(text: String, style: TextStyle) {
+    val styledText = text.toStyled(style)
+    val styleName = style.toName()
+    StyledItemDisplay(tag = styleName, text = styledText)
+}
 
+@Composable
+fun StyledItemDisplay (tag: String, text: String) {
     val context = LocalContext.current
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
-    val styledText = text.toStyled(style)
     val copiedToast = stringResource(id = R.string.toast_copied)
-
     Column(Modifier.padding(16.dp, 0.dp)) {
         Row(
             Modifier
@@ -54,7 +58,7 @@ fun StyleItem(text: String, style: TextStyle) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = style.toName().uppercase(),
+                text = tag.uppercase(),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 0.dp)
@@ -67,12 +71,12 @@ fun StyleItem(text: String, style: TextStyle) {
                 color = Color.Transparent
             ) {
                 Icon(
-                    modifier = if (styledText.isNotEmpty()) {
+                    modifier = if (text.isNotEmpty()) {
                         Modifier
                             .clickable(
                                 onClick = {
                                     clipboardManager
-                                        .setText(AnnotatedString(styledText))
+                                        .setText(AnnotatedString(text))
                                         .also {
                                             Toast
                                                 .makeText(
@@ -92,7 +96,7 @@ fun StyleItem(text: String, style: TextStyle) {
                     },
                     painter = painterResource(id = R.drawable.ic_content_copy_24dp),
                     contentDescription = "Copy",
-                    tint = if (styledText.isNotEmpty()) {
+                    tint = if (text.isNotEmpty()) {
                         MaterialTheme.colorScheme.onBackground
                     } else {
                         MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
@@ -107,7 +111,7 @@ fun StyleItem(text: String, style: TextStyle) {
                 modifier = Modifier
                     .padding(16.dp, 0.dp, 16.dp, 16.dp)
                     .fillMaxWidth(),
-                text = styledText,
+                text = text,
                 style = MaterialTheme.typography.headlineMedium
             )
         }
